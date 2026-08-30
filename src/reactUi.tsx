@@ -72,6 +72,7 @@ import FireRenderer from './react/FireRenderer'
 import MonacoEditor from './react/MonacoEditor'
 import IframeModal from './react/IframeModal'
 import OverlayModelViewer from './react/OverlayModelViewer'
+import VisualModderPanel from './react/VisualModderPanel'
 import CornerIndicatorStats from './react/CornerIndicatorStats'
 import AllSettingsEditor from './react/AllSettingsEditor'
 import { isPlayground, urlParams } from './playgroundIntegration'
@@ -278,6 +279,7 @@ const AppBase = () => {
             <OverlayModelViewer />
             <MonacoEditor />
             <IframeModal />
+            <VisualModderPanel />
             <DebugResponseTimeIndicator />
             <CornerIndicatorStats />
           </RobustPortal>

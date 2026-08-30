@@ -37,6 +37,7 @@ import NetworkStatus from './NetworkStatus'
 import PauseLinkButtons from './PauseLinkButtons'
 import { pixelartIcons } from './PixelartIcon'
 import LoadingTimer from './LoadingTimer'
+import { visualModderRuntime } from '../visualmodder/runtime'
 
 const waitForPotentialRender = async () => {
   return new Promise<void>(resolve => {
@@ -264,6 +265,7 @@ export default () => {
     </ErrorBoundary>
     <div className={styles.pause_container}>
       <Button className="button" style={{ width: '204px' }} onClick={onReturnPress}>Back to Game</Button>
+      <Button className="button" style={{ width: '204px', color: '#55ff55' }} onClick={() => { hideCurrentModal(); visualModderRuntime.togglePanel(); }}>🧩 Visual Modder (V)</Button>
       <PauseLinkButtons />
       <Button className="button" style={{ width: '204px' }} onClick={() => openOptionsMenu('main')}>Options...</Button>
       {singleplayer ? (

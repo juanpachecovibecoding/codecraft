@@ -33,6 +33,7 @@ import { type ActionType, type ActionHoldConfig, type CustomAction } from './app
 import { playerState } from './mineflayer/playerState'
 import { emulateMouseClick } from './app/gamepadCursor'
 import { isNextConsoleKeyboardTarget } from './loadDevConsole'
+import { visualModderRuntime } from './visualmodder/runtime'
 
 export const customKeymaps = proxy(appStorage.keybindings)
 subscribe(customKeymaps, () => {
@@ -81,6 +82,7 @@ export const contro = new ControMax({
       viewerConsole: ['Backquote'],
       togglePerspective: ['F5', 'Up'],
       takeScreenshot: ['F2'],
+      visualModder: ['KeyV'],
     },
     ui: {
       toggleFullscreen: ['F11'],
@@ -602,6 +604,9 @@ contro.on('trigger', ({ command }) => {
       case 'general.command':
         chatInputValueGlobal.value = '/'
         showModal({ reactType: 'chat' })
+        break
+      case 'general.visualModder':
+        visualModderRuntime.togglePanel()
         break
       case 'general.selectItem':
         if (isSpectatingEntity()) break

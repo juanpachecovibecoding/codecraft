@@ -9,6 +9,8 @@ import { saveServer } from './flyingSquidUtils'
 import { setLoadingScreenStatus } from './appStatus'
 import { displayClientChat } from './botUtils'
 import { miscUiState } from './globalState'
+import { visualModderRuntime } from './visualmodder/runtime'
+import { vmUndoManager } from './visualmodder/undo'
 
 const notImplemented = () => {
   return 'Not implemented yet'
@@ -137,6 +139,36 @@ export const commands: Array<{
     alwaysAvailable: true,
     invoke () {
       getThreeJsRendererMethods()?.downloadMesherLog()
+    }
+  },
+  {
+    command: ['/vm', '/visualmodder'],
+    alwaysAvailable: true,
+    async invoke (args: string[]) {
+      if (!args || args.length === 0 || !args[0]) {
+        visualModderRuntime.togglePanel()
+        return
+      }
+      const [commandName, ...restArgs] = args
+      await visualModderRuntime.executeCommand(commandName, restArgs)
+    }
+  },
+  {
+    command: ['/vmu', '/vmundo'],
+    alwaysAvailable: true,
+    invoke () {
+      vmUndoManager.undoLast()
+    }
+  },
+  {
+    command: ['/vmtp'],
+    alwaysAvailable: true,
+    invoke (args: string[]) {
+      if (args.length === 0) {
+        displayClientChat('§cUsage: /vmtp <player> or /vmtp <x> <y> <z>')
+        return
+      }
+      bot.chat(`/tp ${args.join(' ')}`)
     }
   }
 ]

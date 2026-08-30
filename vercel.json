@@ -1,7 +1,7 @@
 {
   "buildCommand": "pnpm prepare-project && pnpm build",
   "outputDirectory": "dist",
-  "installCommand": "pnpm install",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "headers": [
     {
       "source": "/(.*)",

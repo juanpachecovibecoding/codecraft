@@ -290,3 +290,34 @@ pre.content {
   background-color: #5c8e32 !important;
   color: #fff !important;
 }
+
+/* Sprited icons. */
+.icon21 {
+  height: 21px;
+  width: 21px;
+  background-image: url(icons.png);
+  display: inline-block;
+}
+.trash {
+  background-position: 0px 0px;
+}
+.link {
+  background-position: -21px 0px;
+}
+.run {
+  background-position: -42px 0px;
+}
+
+.save {
+  height: 21px;
+  width: 21px;
+  background-image: url(save.png);
+  display: inline-block;
+}
+
+.loadexample {
+  height: 21px;
+  width: 21px;
+  background-image: url(loadexample.png);
+  display: inline-block;
+}

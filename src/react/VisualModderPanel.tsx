@@ -111,7 +111,7 @@ export default () => {
       </div>
       <iframe
         ref={iframeRef}
-        src="./blockly/editor/minecraft/index.html?lang=es"
+        src="./blockly/editor/minecraft/index.html?lang=en"
         className="vm-panel-iframe"
         onLoad={handleIframeLoad}
         allow="fullscreen"

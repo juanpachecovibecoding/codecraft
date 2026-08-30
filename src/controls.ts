@@ -606,6 +606,7 @@ contro.on('trigger', ({ command }) => {
         showModal({ reactType: 'chat' })
         break
       case 'general.visualModder':
+        document.exitPointerLock?.()
         visualModderRuntime.togglePanel()
         break
       case 'general.selectItem':

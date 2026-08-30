@@ -41,6 +41,7 @@ var Code = {};
  */
 Code.LANGUAGE_NAME = {
 		  'en': 'English',
+		  'es': 'Español',
 		  'de': 'Deutsch',
 		  'it': 'Italiano'
 };
@@ -425,6 +426,11 @@ Code.init = function() {
   }
   onresize();
   Blockly.svgResize(Code.workspace);
+  setTimeout(onresize, 50);
+  setTimeout(onresize, 200);
+  setTimeout(onresize, 500);
+  setTimeout(onresize, 1000);
+  window.addEventListener('focus', onresize, false);
   
   
   
@@ -652,6 +658,13 @@ window.addEventListener('message', function(event) {
     } else {
       displayResultMessage(data.message || 'Error deploying code', "red");
     }
+  } else if (data.type === 'VM_RESIZE') {
+    if (typeof onresize === 'function') onresize();
+    if (Code.workspace) Blockly.svgResize(Code.workspace);
+    setTimeout(function() {
+      if (typeof onresize === 'function') onresize();
+      if (Code.workspace) Blockly.svgResize(Code.workspace);
+    }, 100);
   }
 });
 

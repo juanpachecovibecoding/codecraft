@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSnapshot } from 'valtio'
 import { vmState } from '../visualmodder/state'
 import { visualModderRuntime } from '../visualmodder/runtime'
-import { hideModal, showModal } from '../globalState'
+import { hideModal } from '../globalState'
 import { useIsModalActive } from './utilsApp'
 import { showNotification } from './NotificationProvider'
 import { displayClientChat } from '../botUtils'
@@ -12,6 +12,22 @@ export default () => {
   const isModalActive = useIsModalActive('visualmodder-panel')
   const [isFullscreen, setIsFullscreen] = useState(false)
   const iframeRef = useRef<HTMLIFrameElement>(null)
+
+  // Exit pointerlock whenever panel opens
+  useEffect(() => {
+    if (isModalActive) {
+      if (document.pointerLockElement) {
+        document.exitPointerLock?.()
+      }
+      const timer = setTimeout(() => {
+        if (document.pointerLockElement) {
+          document.exitPointerLock?.()
+        }
+        iframeRef.current?.contentWindow?.postMessage({ type: 'VM_RESIZE' }, '*')
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [isModalActive, isFullscreen])
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -48,7 +64,6 @@ export default () => {
     return () => window.removeEventListener('message', handleMessage)
   }, [])
 
-  // Send init message when iframe loads
   const handleIframeLoad = () => {
     const username = bot?.username || 'player'
     const savedXml = localStorage.getItem('vm_last_xml') || ''
@@ -58,12 +73,17 @@ export default () => {
       playerName: username,
       xml: savedXml
     }, '*')
+    iframeRef.current?.contentWindow?.postMessage({ type: 'VM_RESIZE' }, '*')
   }
 
   if (!isModalActive) return null
 
   return (
-    <div className={`vm-panel-container ${isFullscreen ? 'vm-fullscreen' : ''}`}>
+    <div
+      className={`vm-panel-container ${isFullscreen ? 'vm-fullscreen' : ''}`}
+      onMouseEnter={() => { if (document.pointerLockElement) document.exitPointerLock?.() }}
+      onMouseDown={() => { if (document.pointerLockElement) document.exitPointerLock?.() }}
+    >
       <div className="vm-panel-header">
         <div className="vm-panel-title-area">
           <span className="vm-panel-title">🧩 Visual Modder</span>

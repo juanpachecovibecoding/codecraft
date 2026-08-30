@@ -46,6 +46,31 @@ Code.LANGUAGE_NAME = {
 		  'it': 'Italiano'
 };
 
+// Fix Blockly mouse dragging & clicking in modern desktop browsers
+(function patchBlocklyMouseEvents() {
+  if (typeof Blockly !== 'undefined') {
+    if (Blockly.Touch) {
+      Blockly.Touch.shouldHandleEvent = function(a) { return true; };
+      Blockly.Touch.checkTouchIdentifier = function(a) { return true; };
+    }
+    if (Blockly.Flyout && Blockly.Flyout.prototype) {
+      Blockly.Flyout.prototype.determineDragIntention_ = function(a, b) {
+        return Math.sqrt(a * a + b * b) >= 3;
+      };
+      var origFlyoutOnMouseUp = Blockly.Flyout.prototype.onMouseUp_;
+      Blockly.Flyout.prototype.onMouseUp_ = function(a) {
+        if (!this.workspace_.isDragging() && Blockly.Flyout.startBlock_ && Blockly.Flyout.startDownEvent_) {
+          try {
+            this.createBlockFunc_(Blockly.Flyout.startBlock_)(Blockly.Flyout.startDownEvent_);
+          } catch(e) {}
+        }
+        Blockly.Touch.clearTouchIdentifier();
+        Blockly.terminateDrag_();
+      };
+    }
+  }
+})();
+
 Code.LANGUAGE_NAME_originalList = {
   'ar': 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©',
   'be-tarask': 'TaraÅ¡kievica',
@@ -402,6 +427,12 @@ Code.init = function() {
   Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
 
   Code.loadBlocks('');
+
+  if (Code.workspace && Code.workspace.flyout_) {
+    Code.workspace.flyout_.determineDragIntention_ = function(a, b) {
+      return Math.sqrt(a * a + b * b) >= 3;
+    };
+  }
 
   if ('BlocklyStorage' in window) {
     // Hook a save function onto unload.

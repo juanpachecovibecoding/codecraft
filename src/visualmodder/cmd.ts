@@ -288,7 +288,16 @@ export class VmCmdContext {
 
   // --- Turtle Movements ---
 
-  movePosition(player?: any, location?: VmLocation, times = 1, direction = 'FW'): VmLocation {
+  movePosition(
+    player?: any,
+    location?: VmLocation,
+    arg3?: any,
+    arg4?: any,
+    coordSystem?: string,
+    xVal?: number,
+    yVal?: number,
+    zVal?: number
+  ): VmLocation {
     if (!location) {
       // If location is omitted, initialize from player position
       if (bot?.entity) {
@@ -299,6 +308,59 @@ export class VmCmdContext {
       }
       return new VmLocation(0, 64, 0, 0, 0)
     }
+
+    // Check if we are using the 8-argument coordinate system overload
+    if (typeof coordSystem === 'string') {
+      const yaw: number = typeof arg3 === 'number' ? arg3 : location.yaw
+      const pitch: number = typeof arg4 === 'number' ? arg4 : location.pitch
+      const system = coordSystem.toLowerCase().trim()
+
+      const radYaw = (yaw * Math.PI) / 180
+      const radPitch = (pitch * Math.PI) / 180
+
+      // Standard Minecraft forward and right vectors for the given yaw/pitch
+      const forwardX = -Math.sin(radYaw)
+      const forwardZ = Math.cos(radYaw)
+      const rightX = Math.cos(radYaw)
+      const rightZ = Math.sin(radYaw)
+
+      const newLoc = location.clone()
+      // Preserve the current cursor's rotation
+      newLoc.yaw = yaw
+      newLoc.pitch = pitch
+
+      const x = xVal || 0
+      const y = yVal || 0
+      const z = zVal || 0
+
+      if (system === 'cartesian') {
+        newLoc.x = location.x + x * rightX + z * forwardX
+        newLoc.y = location.y + y
+        newLoc.z = location.z + x * rightZ + z * forwardZ
+      } else if (system === 'cylindrical') {
+        const radTheta = (y * Math.PI) / 180
+        const dirX = forwardX * Math.cos(radTheta) + rightX * Math.sin(radTheta)
+        const dirZ = forwardZ * Math.cos(radTheta) + rightZ * Math.sin(radTheta)
+        newLoc.x = location.x + dirX * x
+        newLoc.z = location.z + dirZ * x
+        newLoc.y = location.y + z
+      } else if (system === 'spherical') {
+        const radTheta = (y * Math.PI) / 180
+        const radPhi = (z * Math.PI) / 180
+        const groundR = x * Math.cos(radPhi)
+        const dirX = forwardX * Math.cos(radTheta) + rightX * Math.sin(radTheta)
+        const dirZ = forwardZ * Math.cos(radTheta) + rightZ * Math.sin(radTheta)
+        newLoc.x = location.x + dirX * groundR
+        newLoc.z = location.z + dirZ * groundR
+        newLoc.y = location.y + x * Math.sin(radPhi)
+      }
+
+      return newLoc
+    }
+
+    // Default 4-argument relative move
+    const times = typeof arg3 === 'number' ? arg3 : 1
+    const direction = typeof arg4 === 'string' ? arg4 : 'FW'
     return location.move(times, direction)
   }
 

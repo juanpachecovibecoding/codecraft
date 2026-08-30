@@ -47,7 +47,7 @@ BlocklyStorage.backupBlocks_ = function(workspace) {
  */
 BlocklyStorage.backupOnUnload = function(opt_workspace) {
   var workspace = opt_workspace || Blockly.getMainWorkspace();
-  window.addEventListener('unload',
+  window.addEventListener('beforeunload',
       function() {BlocklyStorage.backupBlocks_(workspace);}, false);
 };
 

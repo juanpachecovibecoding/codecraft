@@ -206,3 +206,7 @@ body {
   font-size: .6em;
   color: grey;
 }
+
+.blocklyFlyout .blocklyDraggable {
+  pointer-events: none !important;
+}

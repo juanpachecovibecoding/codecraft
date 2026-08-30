@@ -1,5 +1,4 @@
-﻿{
-  "framework": null,
+{
   "buildCommand": "pnpm prepare-project && pnpm build",
   "outputDirectory": "dist",
   "installCommand": "pnpm install",

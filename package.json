@@ -45,7 +45,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=18"
+    "node": "20.x"
   },
   "dependencies": {
     "@dimaka/interface": "0.0.3-alpha.0",

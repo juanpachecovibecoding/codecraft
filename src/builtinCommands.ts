@@ -142,7 +142,7 @@ export const commands: Array<{
     }
   },
   {
-    command: ['/vm', '/visualmodder'],
+    command: ['/vm', '/codecraft'],
     alwaysAvailable: true,
     async invoke (args: string[]) {
       if (!args || args.length === 0 || !args[0]) {

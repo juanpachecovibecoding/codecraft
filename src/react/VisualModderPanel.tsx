@@ -40,8 +40,8 @@ export default () => {
         if (result.status === 'OK') {
           vmState.lastDeployedCommands = result.functions
           const cmdName = result.functions[0] || 'nombre'
-          showNotification('VisualModder Desplegado', `Escribe /vm ${cmdName} en el chat para ejecutarlo.`, false, 'label-alt')
-          displayClientChat(`§a[VisualModder] Código compilado con éxito. Ejecuta §e/vm ${cmdName}§a en el chat.`)
+          showNotification('Code Craft Desplegado', `Escribe /vm ${cmdName} en el chat para ejecutarlo.`, false, 'label-alt')
+          displayClientChat(`§a[Code Craft] Código compilado con éxito. Ejecuta §e/vm ${cmdName}§a en el chat.`)
 
           iframeRef.current?.contentWindow?.postMessage({
             type: 'VM_DEPLOY_RESULT',
@@ -50,7 +50,7 @@ export default () => {
             playerName: data.playerName
           }, '*')
         } else {
-          displayClientChat(`§c[VisualModder] ${result.message}`)
+          displayClientChat(`§c[Code Craft] ${result.message}`)
           iframeRef.current?.contentWindow?.postMessage({
             type: 'VM_DEPLOY_RESULT',
             status: 'ERROR',
@@ -86,7 +86,7 @@ export default () => {
     >
       <div className="vm-panel-header">
         <div className="vm-panel-title-area">
-          <span className="vm-panel-title">🧩 Visual Modder</span>
+          <span className="vm-panel-title">🧩 Code Craft</span>
           <span className="vm-panel-subtitle">Programa con bloques | /vm &lt;nombre&gt;</span>
         </div>
         <div className="vm-panel-actions">

@@ -265,7 +265,7 @@ export default () => {
     </ErrorBoundary>
     <div className={styles.pause_container}>
       <Button className="button" style={{ width: '204px' }} onClick={onReturnPress}>Back to Game</Button>
-      <Button className="button" style={{ width: '204px', color: '#55ff55' }} onClick={() => { hideCurrentModal(); visualModderRuntime.togglePanel(); }}>🧩 Visual Modder (V)</Button>
+      <Button className="button" style={{ width: '204px', color: '#55ff55' }} onClick={() => { hideCurrentModal(); visualModderRuntime.togglePanel(); }}>🧩 Code Craft (V)</Button>
       <PauseLinkButtons />
       <Button className="button" style={{ width: '204px' }} onClick={() => openOptionsMenu('main')}>Options...</Button>
       {singleplayer ? (

@@ -16,7 +16,7 @@ export class VmUndoManager {
 
   undoLast(): boolean {
     if (this.history.length === 0) {
-      displayClientChat('§c[VisualModder] Nothing to undo.')
+      displayClientChat('§c[Code Craft] Nada que deshacer.')
       return false
     }
 
@@ -45,7 +45,7 @@ export class VmUndoManager {
       }
     }
 
-    displayClientChat(`§a[VisualModder] Undone command §e${session.commandName}§a (${count} blocks restored).`)
+    displayClientChat(`§a[Code Craft] Deshecho el comando §e${session.commandName}§a (se restauraron ${count} bloques).`)
     return true
   }
 

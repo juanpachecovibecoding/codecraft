@@ -66,10 +66,10 @@ export class VisualModderRuntime {
         functions: Object.keys(this.registeredFunctions)
       }
     } catch (err: any) {
-      console.error('VisualModder compile error:', err)
+      console.error('Code Craft compile error:', err)
       return {
         status: 'ERROR',
-        message: `Syntax error: ${err.message || err}`,
+        message: `Error de sintaxis: ${err.message || err}`,
         functions: []
       }
     }
@@ -82,15 +82,15 @@ export class VisualModderRuntime {
     if (!fn) {
       const available = Object.keys(this.registeredFunctions)
       if (available.length === 0) {
-        displayClientChat('§c[VisualModder] No commands found. Press §e"V"§c to open Blockly and create commands!')
+        displayClientChat('§c[Code Craft] No se encontraron comandos. ¡Presiona §e"V"§c para abrir Code Craft y crear comandos!')
       } else {
-        displayClientChat(`§c[VisualModder] Command "§e${commandName}§c" not found. Available: §a${available.join(', ')}`)
+        displayClientChat(`§c[Code Craft] Comando "§e${commandName}§c" no encontrado. Disponibles: §a${available.join(', ')}`)
       }
       return false
     }
 
     if (!bot?.entity?.position) {
-      displayClientChat('§c[VisualModder] Player position not available.')
+      displayClientChat('§c[Code Craft] Posición del jugador no disponible.')
       return false
     }
 
@@ -109,7 +109,7 @@ export class VisualModderRuntime {
     const startLocation = new VmLocation(startX, startY, startZ, yaw, pitch)
     const cmdContext = new VmCmdContext(cleanName)
 
-    displayClientChat(`§7[VisualModder] Executing §e/vm ${cleanName}§7...`)
+    displayClientChat(`§7[Code Craft] Ejecutando §e/vm ${cleanName}§7...`)
 
     try {
       // Re-evaluate in fresh context with active CMD and Locations
@@ -147,11 +147,11 @@ export class VisualModderRuntime {
 
       cmdContext.finish()
       const elapsed = Date.now() - startTime
-      displayClientChat(`§a[VisualModder] §e${cleanName}§a completed: §f${cmdContext.blockCount} blocks placed in ${elapsed}ms.`)
+      displayClientChat(`§a[Code Craft] §e${cleanName}§a completado: §f${cmdContext.blockCount} bloques colocados en ${elapsed}ms.`)
       return true
     } catch (err: any) {
-      console.error('VisualModder runtime execution error:', err)
-      displayClientChat(`§c[VisualModder] Error running ${cleanName}: ${err.message || err}`)
+      console.error('Code Craft runtime execution error:', err)
+      displayClientChat(`§c[Code Craft] Error al ejecutar ${cleanName}: ${err.message || err}`)
       return false
     }
   }

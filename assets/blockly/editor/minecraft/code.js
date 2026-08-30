@@ -859,3 +859,15 @@ function storeLastUsedColour(event) {
 	  }
 	}
 
+window.addEventListener('mousedown', function(e) {
+  console.log('[VM-DEBUG] Iframe mousedown:', e.button, 'clientX:', e.clientX, 'clientY:', e.clientY, 'target:', e.target);
+}, true);
+window.addEventListener('mousemove', function(e) {
+  if (e.buttons > 0) {
+    console.log('[VM-DEBUG] Iframe mousemove (drag):', e.buttons, 'clientX:', e.clientX, 'clientY:', e.clientY);
+  }
+}, true);
+window.addEventListener('mouseup', function(e) {
+  console.log('[VM-DEBUG] Iframe mouseup:', e.button, 'clientX:', e.clientX, 'clientY:', e.clientY);
+}, true);
+

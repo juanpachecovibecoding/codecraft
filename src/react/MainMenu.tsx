@@ -136,7 +136,7 @@ const MainMenuBase = ({
             placement: 'top',
           }}
         >
-          Panel de Control
+          Conectar
         </ButtonWithTooltip>
 
         <Button

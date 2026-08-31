@@ -18,23 +18,26 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    z-index: 10;
+    pointer-events: none;
+    user-select: none;
 }
 
 .logo-container {
     position: relative;
     display: inline-block;
+    pointer-events: none;
 }
 
 .logo-img {
     height: 122px;
     image-rendering: pixelated;
     display: block;
+    pointer-events: none;
 }
 
 .splash {
     position: absolute;
-    bottom: 16px;
+    bottom: 22px;
     right: -45px;
     color: #ff0;
     transform: rotateZ(-20deg) scale(1);
@@ -43,8 +46,8 @@
     font-size: 10px;
     line-height: 1.15;
     text-align: center;
-    z-index: 20;
     pointer-events: none;
+    user-select: none;
     animation: splashAnim 400ms infinite alternate linear;
 }
 
@@ -63,6 +66,8 @@
     left: 50%;
     width: 200px;
     transform: translate(-50%);
+    z-index: 50;
+    pointer-events: auto;
 }
 
 .menu-row {

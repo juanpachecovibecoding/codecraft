@@ -4,7 +4,7 @@
 
 .game-title {
     position: fixed;
-    top: var(--top-offset);
+    top: 15px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -16,15 +16,15 @@
 }
 
 .logo-img {
-    height: 94px;
+    height: 122px;
     image-rendering: pixelated;
     display: block;
 }
 
 .splash {
     position: absolute;
-    bottom: -10px;
-    right: -56px;
+    bottom: -14px;
+    right: -72px;
     color: #ff0;
     transform: rotateZ(-20deg) scale(1);
     width: max-content;
@@ -44,7 +44,7 @@
     flex-direction: column;
     gap: 4px 0;
     position: fixed;
-    top: calc(25% + var(--top-offset) + 18px);
+    top: calc(25% + var(--top-offset) + 38px);
     left: 50%;
     width: 200px;
     transform: translate(-50%);

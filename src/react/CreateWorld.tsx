@@ -11,8 +11,7 @@ import styles from './createWorld.module.css'
 import { InputOption, showInputsModal, showOptionsModal } from './SelectOption'
 import { withInjectableUi } from './extendableSystem'
 
-// const worldTypes = ['default', 'flat', 'largeBiomes', 'amplified', 'customized', 'buffet', 'debug_all_block_states']
-const worldTypes = ['default', 'flat', 'empty', 'nether', 'all_the_blocks']
+const worldTypes = ['flat']
 const gameModes = ['survival', 'creative'/* , 'adventure', 'spectator' */]
 
 export const creatingWorldState = proxy({
@@ -60,11 +59,14 @@ const CreateWorldBase = ({ cancelClick, createClick, customizeClick, versions, d
       <button type='submit' style={{ visibility: 'hidden' }} />
     </form>
     <div style={{ display: 'flex' }}>
-      <Button onClick={() => {
-        const index = worldTypes.indexOf(type)
-        creatingWorldState.type = worldTypes[index === worldTypes.length - 1 ? 0 : index + 1]
-      }}
-      >World Type: {type}
+      <Button
+        disabled
+        onClick={() => {
+          const index = worldTypes.indexOf(type)
+          creatingWorldState.type = worldTypes[index === worldTypes.length - 1 ? 0 : index + 1]
+        }}
+      >
+        World Type: {type}
       </Button>
       {/* <Button onClick={() => customizeClick()} disabled>
         Customize

@@ -265,32 +265,7 @@ export default () => {
     </ErrorBoundary>
     <div className={styles.pause_container}>
       <Button className="button" style={{ width: '204px' }} onClick={onReturnPress}>Back to Game</Button>
-      <Button className="button" style={{ width: '204px', color: '#55ff55' }} onClick={() => { hideCurrentModal(); visualModderRuntime.togglePanel(); }}>🧩 Code Craft (V)</Button>
-      <PauseLinkButtons />
-      <Button className="button" style={{ width: '204px' }} onClick={() => openOptionsMenu('main')}>Options...</Button>
-      {singleplayer ? (
-        <div className={styles.row}>
-          <Button className="button" style={{ width: '170px' }} onClick={async () => clickJoinLinkButton()}>
-            {wanOpening ? 'Opening, wait...' : wanOpened ? 'Close Wan' : 'Copy Join Link'}
-          </Button>
-          {(navigator.share as typeof navigator.share | undefined) ? (
-            <Button
-              title="Share Join Link"
-              className="button"
-              icon="pixelarticons:arrow-up"
-              style={{ width: '20px' }}
-              onClick={async () => clickWebShareButton()}
-            />
-          ) : null}
-          <Button
-            title='Display QR for the Join Link'
-            className="button"
-            icon="pixelarticons:dice"
-            style={{ width: '20px' }}
-            onClick={async () => clickJoinLinkButton(true)}
-          />
-        </div>
-      ) : null}
+      <Button className="button" style={{ width: '204px' }} onClick={() => openOptionsMenu('main')}>Opciones</Button>
       {(noConnection || appConfig?.alwaysReconnectButton) && (
         <div className={styles.row}>
           <Button className="button" style={{ width: appConfig?.reportBugButtonWithReconnect ? '98px' : '204px' }} onClick={reconnectReload}>

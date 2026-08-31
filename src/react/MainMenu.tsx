@@ -1,8 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { openURL } from 'minecraft-renderer/src/lib/simpleUtils'
 import { useSnapshot } from 'valtio'
-import { haveDirectoryPicker } from '../utils'
-import { ConnectOptions } from '../connect'
 import { miscUiState } from '../globalState'
 import {
   isRemoteSplashText,
@@ -15,9 +12,7 @@ import {
 import styles from './mainMenu.module.css'
 import Button from './Button'
 import ButtonWithTooltip from './ButtonWithTooltip'
-import { pixelartIcons } from './PixelartIcon'
 import useLongPress from './useLongPress'
-import PauseLinkButtons from './PauseLinkButtons'
 import CreditsBookButton from './CreditsBookButton'
 import { withInjectableUi } from './extendableSystem'
 
@@ -120,21 +115,7 @@ const MainMenuBase = ({
     () => onVersionTextClick?.(),
   )
 
-  const connectToServerLongPress = useLongPress(
-    () => {
-      if (process.env.NODE_ENV === 'development') {
-        // Connect to <origin>:25565
-        const origin = window.location.hostname
-        const connectOptions: ConnectOptions = {
-          server: `${origin}:25565`,
-          username: 'test',
-        }
-        dispatchEvent(new CustomEvent('connect', { detail: connectOptions }))
-      }
-    },
-    () => connectToServerAction?.(null as any),
-    { delay: 500 }
-  )
+
 
   return (
     <div className={styles.root}>
@@ -147,109 +128,29 @@ const MainMenuBase = ({
 
       <div className={styles.menu}>
         <ButtonWithTooltip
+          {...singleplayerLongPress}
+          data-test-id='singleplayer-button'
+          disabled={!singleplayerAvailable}
           initialTooltip={{
-            content: 'Connect to Java servers!',
+            content: 'Crea mundos y juega offline',
             placement: 'top',
           }}
-          {...connectToServerLongPress}
-          data-test-id='servers-screen-button'
         >
-          Connect to server
+          Panel de Control
         </ButtonWithTooltip>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <ButtonWithTooltip
-            style={{ width: 150 }}
-            {...singleplayerLongPress}
-            data-test-id='singleplayer-button'
-            disabled={!singleplayerAvailable}
-            initialTooltip={{
-              content: 'Create worlds and play offline',
-              placement: 'left',
-              offset: -40
-            }}
-          >
-            Singleplayer
-          </ButtonWithTooltip>
 
-          <ButtonWithTooltip
-            disabled={!mapsProvider}
-            // className={styles['maps-provider']}
-            icon={pixelartIcons.map}
-            initialTooltip={{ content: 'Explore maps to play from provider!', placement: 'top-start' }}
-            onClick={() => mapsProvider && openURL(httpsRegex.test(mapsProvider) ? mapsProvider : 'https://' + mapsProvider, false)}
-          />
-
-          <ButtonWithTooltip
-            data-test-id='select-file-folder'
-            icon={pixelartIcons.folder}
-            onClick={openFileAction}
-            initialTooltip={{
-              content: 'Load any Java world save' + (haveDirectoryPicker() ? '' : ' (zip)!'),
-              placement: 'bottom-start',
-            }}
-          />
-        </div>
         <Button
           onClick={optionsAction}
         >
           Options
         </Button>
-        <div className={styles['menu-row']}>
-          <PauseLinkButtons />
-        </div>
         <CreditsBookButton />
       </div>
 
       <div className={styles['bottom-info']}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <span style={{ fontSize: 10, color: 'gray' }} {...versionLongPress}>{versionText}</span>
-          <span
-            title={`${versionTitle} (click to reload)`}
-            onClick={onVersionStatusClick}
-            className={styles['product-info']}
-          >
-            <span style={{
-              position: 'absolute',
-              left: '-9999px',
-              width: '1px',
-              height: '1px',
-              overflow: 'hidden',
-              clip: 'rect(1px, 1px, 1px, 1px)',
-              whiteSpace: 'nowrap'
-            }}>
-              Prismarine Web Client
-            </span>
-
-            V2 Presented by Sandexzx {versionStatus}
-          </span>
         </div>
-        <span className={styles['product-description']}>
-          <div className={styles['product-link']}>
-            {linksParsed?.map(([name, link], i, arr) => {
-              if (!link.startsWith('http')) link = `https://${link}`
-              const finalLink = link
-              return <div style={{
-                color: 'lightgray',
-                fontSize: 8,
-              }}>
-                <a
-                  key={name}
-                  style={{
-                    whiteSpace: 'nowrap',
-                    cursor: 'pointer',
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    openURL(finalLink, false)
-                  }}
-                >{name}
-                </a>
-                {i < arr.length - 1 && <span style={{ marginLeft: 2 }}>·</span>}
-              </div>
-            })}
-          </div>
-          <span>{appConfig?.rightSideText}</span>
-        </span>
       </div>
     </div>
   )

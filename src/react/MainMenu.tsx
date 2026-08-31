@@ -15,6 +15,8 @@ import ButtonWithTooltip from './ButtonWithTooltip'
 import useLongPress from './useLongPress'
 import CreditsBookButton from './CreditsBookButton'
 import { withInjectableUi } from './extendableSystem'
+import logoImage from '../../assets/logo.png'
+
 
 type Action = (e: React.MouseEvent<HTMLButtonElement>) => void
 
@@ -120,8 +122,8 @@ const MainMenuBase = ({
   return (
     <div className={styles.root}>
       <div className={styles['game-title']}>
-        <div className={styles.minecraft}>
-          <div className={styles.edition} />
+        <div className={styles['logo-container']}>
+          <img src={logoImage} alt="Code Craft" className={styles['logo-img']} />
           <span className={styles.splash}>{splashText}</span>
         </div>
       </div>

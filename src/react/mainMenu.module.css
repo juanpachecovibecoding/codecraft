@@ -10,55 +10,23 @@
     justify-content: center;
 }
 
-.game-title .minec {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: var(--title-gui);
-    background-size: 256px;
-    width: 155px;
-    height: 44px;
-}
-.game-title .minecraft {
-    display: block;
+.logo-container {
     position: relative;
-    background-image: var(--title-gui);
-    background-size: 256px;
-    width: 256px;
-    height: 44px;
+    display: inline-block;
 }
 
-.game-title .raft {
+.logo-img {
+    height: 72px;
+    image-rendering: pixelated;
     display: block;
-    position: absolute;
-    top: 0;
-    left: 155px;
-    background-image: var(--title-gui);
-    background-size: 256px;
-    width: 155px;
-    height: 44px;
-    background-position-y: -45px;
-}
-
-.game-title .edition {
-    display: block;
-    position: absolute;
-    top: 37px;
-    left: calc((512px / 2 - 176px / 2) / 2);
-    background-image: url('../../assets/edition.png');
-    background-size: 128px;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 14px;
 }
 
 .splash {
     position: absolute;
-    top: 32px;
-    left: 227px;
+    bottom: -8px;
+    right: -48px;
     color: #ff0;
-    transform: translate(-50%, -50%) rotateZ(-20deg) scale(1);
+    transform: rotateZ(-20deg) scale(1);
     width: max-content;
     text-shadow: 1px 1px #220;
     font-size: 10px;
@@ -67,7 +35,7 @@
 
 @keyframes splashAnim {
     to {
-        transform: translate(-50%, -50%) rotateZ(-20deg) scale(1.07);
+        transform: rotateZ(-20deg) scale(1.07);
     }
 }
 

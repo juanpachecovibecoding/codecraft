@@ -97,10 +97,18 @@ export class VisualModderRuntime {
     const startTime = Date.now()
     const p = bot.entity.position
     // Minecraft yaw: 0 is South (+Z), -90/270 is East (+X)
-    const yaw = (-bot.entity.yaw * 180) / Math.PI
-    const pitch = (-bot.entity.pitch * 180) / Math.PI
+    const rawYaw = (-bot.entity.yaw * 180) / Math.PI
+    const rawPitch = (-bot.entity.pitch * 180) / Math.PI
 
-    // Initial position: 2 blocks in front of the player at foot level
+    // Snap yaw to nearest 90 degrees to align build with standard cardinal axes
+    let yaw = Math.round(rawYaw / 90) * 90
+    yaw = ((yaw % 360) + 360) % 360
+
+    // Snap pitch to nearest 90 degrees to prevent crooked vertical builds
+    let pitch = Math.round(rawPitch / 90) * 90
+    if (pitch === -0) pitch = 0
+
+    // Initial position: 2 blocks in front of the player at foot level (based on snapped direction)
     const radYaw = (yaw * Math.PI) / 180
     const startX = Math.floor(p.x - Math.sin(radYaw) * 2)
     const startY = Math.floor(p.y)

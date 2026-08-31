@@ -302,8 +302,12 @@ export class VmCmdContext {
       // If location is omitted, initialize from player position
       if (bot?.entity) {
         const p = bot.entity.position
-        const yaw = (-bot.entity.yaw * 180) / Math.PI
-        const pitch = (-bot.entity.pitch * 180) / Math.PI
+        const rawYaw = (-bot.entity.yaw * 180) / Math.PI
+        const rawPitch = (-bot.entity.pitch * 180) / Math.PI
+        let yaw = Math.round(rawYaw / 90) * 90
+        yaw = ((yaw % 360) + 360) % 360
+        let pitch = Math.round(rawPitch / 90) * 90
+        if (pitch === -0) pitch = 0
         return new VmLocation(p.x, p.y, p.z, yaw, pitch)
       }
       return new VmLocation(0, 64, 0, 0, 0)

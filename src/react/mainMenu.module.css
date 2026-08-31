@@ -41,6 +41,8 @@
     width: max-content;
     text-shadow: 1px 1px #220;
     font-size: 10px;
+    line-height: 1.15;
+    text-align: center;
     z-index: 20;
     pointer-events: none;
     animation: splashAnim 400ms infinite alternate linear;

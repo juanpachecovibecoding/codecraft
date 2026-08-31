@@ -124,7 +124,18 @@ const MainMenuBase = ({
       <div className={styles['game-title']}>
         <div className={styles['logo-container']}>
           <img src={logoImage} alt="Code Craft" className={styles['logo-img']} />
-          <span className={styles.splash}>{splashText}</span>
+          <span className={styles.splash}>
+            {splashText && splashText.includes('\n') ? (
+              splashText.split('\n').map((line, i) => (
+                <span key={i} style={{ display: 'block' }}>{line}</span>
+              ))
+            ) : (
+              <>
+                <span style={{ display: 'block' }}>Aprende a programar</span>
+                <span style={{ display: 'block' }}>con Minecraft!</span>
+              </>
+            )}
+          </span>
         </div>
       </div>
 
@@ -144,7 +155,7 @@ const MainMenuBase = ({
         <Button
           onClick={optionsAction}
         >
-          Options
+          Opciones
         </Button>
         <CreditsBookButton />
       </div>

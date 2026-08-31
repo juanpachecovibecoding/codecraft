@@ -239,6 +239,7 @@ const appConfig = defineConfig({
                     fs.copyFileSync('./assets/config.html', './dist/config.html')
                     fs.copyFileSync('./assets/debug-inputs.html', './dist/debug-inputs.html')
                     fs.copyFileSync('./assets/loading-bg.jpg', './dist/loading-bg.jpg')
+                    fs.copyFileSync('./assets/main-menu-bg.webp', './dist/main-menu-bg.webp')
                     fs.copyFileSync('./assets/mojangles.ttf', './dist/mojangles.ttf')
                     if (fs.existsSync('./assets/release.json')) {
                         fs.copyFileSync('./assets/release.json', './dist/release.json')

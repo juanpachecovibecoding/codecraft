@@ -241,6 +241,9 @@ const appConfig = defineConfig({
                     fs.copyFileSync('./assets/loading-bg.jpg', './dist/loading-bg.jpg')
                     fs.copyFileSync('./assets/main-menu-bg.webp', './dist/main-menu-bg.webp')
                     fs.copyFileSync('./assets/mojangles.ttf', './dist/mojangles.ttf')
+                    if (fs.existsSync('./assets/playcode-intro-logo.png')) {
+                        fs.copyFileSync('./assets/playcode-intro-logo.png', './dist/playcode-intro-logo.png')
+                    }
                     if (fs.existsSync('./assets/release.json')) {
                         fs.copyFileSync('./assets/release.json', './dist/release.json')
                     }
